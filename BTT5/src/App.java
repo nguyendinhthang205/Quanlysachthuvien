@@ -101,6 +101,7 @@ public class App {
                     break;
 
                 case 7:
+                    
                     double tongGia = 0;
                     for (String sach : danhSachSach) {
                         String[] info = sach.split(",");
