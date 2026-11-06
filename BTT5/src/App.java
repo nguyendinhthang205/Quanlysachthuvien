@@ -1,68 +1,122 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        // Sử dụng mảng để lưu tạm thời danh sách (Tối đa 100 cuốn)
-        String[] maSach = new String[100];
-        String[] tenSach = new String[100];
-        double[] donGia = new double[100];
-        int[] soLuong = new int[100];
-        int tongDauSach = 0;
+        // Khai báo ArrayList lưu thông tin sách (Bài 3)
+        ArrayList<String> danhSachSach = new ArrayList<>();
         int chon = 0;
 
         do {
-            System.out.println("\n===== MENU TUAN 5 (VONG LAP) =====");
-            System.out.println("1. Nhap n sach bang vong lap");
-            System.out.println("2. Tinh tong so luong va tong gia tri");
-            System.out.println("3. Tim sach theo ma");
-            System.out.println("4. Thoat");
-            System.out.print("Chon chuc nang: ");
+            // Xây dựng menu 8 chức năng (Bài 4)
+            System.out.println("\n===== MENU TUAN 6 (ARRAYLIST) =====");
+            System.out.println("1. Them sach");
+            System.out.println("2. Hien thi sach");
+            System.out.println("3. Tim sach");
+            System.out.println("4. Xoa sach");
+            System.out.println("5. Sua sach (Cap nhat Gia & So luong)");
+            System.out.println("6. Tinh tong so luong");
+            System.out.println("7. Tinh tong gia tri");
+            System.out.println("8. Thoat");
+            System.out.print("Chon chuc nang (1-8): ");
             chon = Integer.parseInt(scanner.nextLine());
 
             switch (chon) {
                 case 1:
-                    System.out.print("Nhap so luong sach can them (n): ");
-                    int n = Integer.parseInt(scanner.nextLine());
-                    for (int i = 0; i < n; i++) {
-                        System.out.println("--- Nhap thong tin cuon thu " + (tongDauSach + 1) + " ---");
-                        System.out.print("Ma sach: "); maSach[tongDauSach] = scanner.nextLine();
-                        System.out.print("Ten sach: "); tenSach[tongDauSach] = scanner.nextLine();
-                        System.out.print("Don gia: "); donGia[tongDauSach] = Double.parseDouble(scanner.nextLine());
-                        System.out.print("So luong: "); soLuong[tongDauSach] = Integer.parseInt(scanner.nextLine());
-                        tongDauSach++;
-                    }
+                    System.out.print("Nhap Ma sach: "); String ma = scanner.nextLine();
+                    System.out.print("Nhap Ten sach: "); String ten = scanner.nextLine();
+                    System.out.print("Nhap Don gia: "); double gia = Double.parseDouble(scanner.nextLine());
+                    System.out.print("Nhap So luong: "); int sl = Integer.parseInt(scanner.nextLine());
+                    // Gộp thành 1 chuỗi để lưu vào ArrayList
+                    danhSachSach.add(ma + "," + ten + "," + gia + "," + sl);
+                    System.out.println("=> Da them sach thanh cong!");
                     break;
+
                 case 2:
-                    int tongSL = 0;
-                    double tongGia = 0;
-                    for (int i = 0; i < tongDauSach; i++) {
-                        tongSL += soLuong[i];
-                        tongGia += (donGia[i] * soLuong[i]);
+                    System.out.println("--- DANH SACH SACH ---");
+                    for (int i = 0; i < danhSachSach.size(); i++) {
+                        String[] info = danhSachSach.get(i).split(",");
+                        System.out.println((i+1) + ". Ma: " + info[0] + " | Ten: " + info[1] + " | Gia: " + info[2] + " | SL: " + info[3]);
                     }
-                    System.out.println("=> Tong so luong tat ca cac sach: " + tongSL);
-                    System.out.println("=> Tong gia tri tat ca cac sach: " + tongGia);
                     break;
+
                 case 3:
-                    System.out.print("Nhap ma sach can tim: ");
+                    System.out.print("Nhap Ma sach can tim: ");
                     String maTim = scanner.nextLine();
                     boolean thay = false;
-                    for (int i = 0; i < tongDauSach; i++) {
-                        if (maSach[i].equals(maTim)) {
-                            System.out.println("Tim thay: " + tenSach[i] + " | Gia: " + donGia[i] + " | SL: " + soLuong[i]);
-                            thay = true;
+                    for (String sach : danhSachSach) {
+                        if (sach.startsWith(maTim + ",")) {
+                            String[] info = sach.split(",");
+                            System.out.println("=> Tim thay: Ten: " + info[1] + " | Gia: " + info[2] + " | SL: " + info[3]);
+                            thay = true; 
                             break;
                         }
                     }
-                    if (!thay) System.out.println("Khong tim thay ma sach nay.");
+                    if (!thay) System.out.println("=> Khong tim thay ma sach nay!");
                     break;
+
                 case 4:
+                    System.out.print("Nhap Ma sach can xoa: ");
+                    String maXoa = scanner.nextLine();
+                    boolean daXoa = false;
+                    for (int i = 0; i < danhSachSach.size(); i++) {
+                        if (danhSachSach.get(i).startsWith(maXoa + ",")) {
+                            danhSachSach.remove(i);
+                            System.out.println("=> Da xoa thanh cong!");
+                            daXoa = true; 
+                            break;
+                        }
+                    }
+                    if (!daXoa) System.out.println("=> Khong tim thay ma de xoa.");
+                    break;
+
+                case 5:
+                    System.out.print("Nhap Ma sach can sua: ");
+                    String maSua = scanner.nextLine();
+                    boolean daSua = false;
+                    for (int i = 0; i < danhSachSach.size(); i++) {
+                        if (danhSachSach.get(i).startsWith(maSua + ",")) {
+                            String[] info = danhSachSach.get(i).split(",");
+                            System.out.println("Dang sua thong tin sach: " + info[1]);
+                            System.out.print("Nhap Gia moi: "); double giaMoi = Double.parseDouble(scanner.nextLine());
+                            System.out.print("Nhap So luong moi: "); int slMoi = Integer.parseInt(scanner.nextLine());
+                            // Cập nhật lại phần tử
+                            danhSachSach.set(i, info[0] + "," + info[1] + "," + giaMoi + "," + slMoi);
+                            System.out.println("=> Da sua thanh cong!");
+                            daSua = true; 
+                            break;
+                        }
+                    }
+                    if (!daSua) System.out.println("=> Khong tim thay ma de sua.");
+                    break;
+
+                case 6:
+                    int tongSL = 0;
+                    for (String sach : danhSachSach) {
+                        String[] info = sach.split(",");
+                        tongSL += Integer.parseInt(info[3]);
+                    }
+                    System.out.println("=> Tong so luong sach hien co: " + tongSL);
+                    break;
+
+                case 7:
+                    double tongGia = 0;
+                    for (String sach : danhSachSach) {
+                        String[] info = sach.split(",");
+                        tongGia += Double.parseDouble(info[2]) * Integer.parseInt(info[3]);
+                    }
+                    System.out.println("=> Tong gia tri cua thu vien: " + tongGia);
+                    break;
+
+                case 8:
                     System.out.println("Thoat chuong trinh.");
                     break;
+
                 default:
-                    System.out.println("Chon sai, vui long chon lai!");
+                    System.out.println("Lua chon khong hop le, vui long chon tu 1-8.");
             }
-        } while (chon != 4);
+        } while (chon != 8);
         
         scanner.close();
     }
