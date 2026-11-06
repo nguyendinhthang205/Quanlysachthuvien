@@ -9,7 +9,7 @@ public class App {
         int chon = 0;
 
         do {
-            // Xây dựng menu 8 chức năng (Bài 4)
+            // Xây dựng menu 8 chức năng
             System.out.println("\n===== MENU TUAN 6 (ARRAYLIST) =====");
             System.out.println("1. Them sach");
             System.out.println("2. Hien thi sach");
