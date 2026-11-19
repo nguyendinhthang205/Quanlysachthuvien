@@ -11,27 +11,28 @@ public class Test {
 
         for (int i = 0; i < n; i++) {
             System.out.println("\n--- Nhap thong tin cuon sach thu " + (i + 1) + " ---");
-            Sach s = new Sach();
             
             System.out.print("Nhap ma sach: ");
-            s.maSach = scanner.nextLine();
+            String ma = scanner.nextLine();
             
             System.out.print("Nhap tieu de: ");
-            s.tieuDe = scanner.nextLine();
+            String tieuDe = scanner.nextLine();
             
             System.out.print("Nhap tac gia: ");
-            s.tacGia = scanner.nextLine();
+            String tacGia = scanner.nextLine();
             
             System.out.print("Nhap nam xuat ban: ");
-            s.namXuatBan = Integer.parseInt(scanner.nextLine());
+            int namXB = Integer.parseInt(scanner.nextLine());
             
             System.out.print("Nhap so luong: ");
-            s.soLuong = Integer.parseInt(scanner.nextLine());
+            int soLuong = Integer.parseInt(scanner.nextLine());
 
+            // Tuần 8: Sử dụng Constructor để tạo đối tượng
+            Sach s = new Sach(ma, tieuDe, tacGia, namXB, soLuong);
             danhSachSach.add(s);
         }
 
-        System.out.println("\n===== DANH SACH SACH (TUAN 7) =====");
+        System.out.println("\n===== DANH SACH SACH (TUAN 8) =====");
         for (Sach s : danhSachSach) {
             s.hienThiThongTin();
         }
